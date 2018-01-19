@@ -1,0 +1,2 @@
+#!/bin/sh
+ctags -R --languages=python --extra=+q $PWD

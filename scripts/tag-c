@@ -1,0 +1,56 @@
+#!/bin/sh
+
+
+CreateFilesList() {
+  find $PWD -name "*.h" -o -name "*.c" -o -name "*.cc" > gtags.files
+}
+
+CreateGtags() {
+  gtags -f gtags.files
+}
+
+CreateCscope() {
+  cscope -Rbq -i gtags.files
+}
+
+# Ctags
+# ctags omnicppcomplete
+# ctags -R --c++-kinds=+p --fields=+iaS --extra=+q src
+# 在对C++文件进行补全时, OmniCppComplete插件需要tag文件中包含C++的额外信息, 因此上面的ctags命令不同于以前我们所使用的.
+# 它专门为C++语言生成一些额外的信息, 上述选项的含义如下：
+# --c++-kinds=+p   "为C++文件增加函数原型的标签
+# --fields=+iaS    " 在标签文件中加入继承信息(i)、类成员的访问控制信息(a)、以及函数的指纹(S)
+# --extra=+q       " 为标签增加类修饰符。注意, 如果没有此选项, 将不能对类成员补全
+CreateTags() {
+  ctags -R --languages=c --langmap=c:+.h -h +.h --c-kinds=+px --fields=+iaS --extra=+q -L gtags.files
+}
+
+Usage() {
+  fn=`basename $0`
+  echo "Usage: $fn [hfct]"
+  echo "  h    help information"
+  echo "  f    find target files to gtags.files"
+  echo "  g    gtags"
+  # echo "  c    create cscope symbol files"
+  echo "  t    ctags"
+}
+
+
+if [ "$1" = "" ];then
+  Usage $0
+elif [ "$1" = "h" ];then
+  Usage $0
+else
+  if [[ "$1" =~ "f" ]] ;then
+    CreateFilesList
+  fi
+  if [[ "$1" =~ "c" ]] ;then
+    CreateCscope
+  fi
+  if [[ "$1" =~ "g" ]] ;then
+    CreateGtags
+  fi
+  if [[ "$1" =~ "t" ]] ;then
+    CreateTags
+  fi
+fi

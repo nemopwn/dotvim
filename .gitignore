@@ -1,0 +1,11 @@
+# python
+*.py[cod]
+
+# vim
+.netrwhist
+.*.swp
+plugged/
+
+# vim plug
+autoload/plug.vim
+autoload/plug.vim.old

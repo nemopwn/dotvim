@@ -1,0 +1,11 @@
+snippet ctype "C var type or struct node"
+${1:node} [shape=none, margin=0, label=<
+	<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD PORT="type"  BGCOLOR="cyan">${2:type}</TD></TR>
+		<TR><TD PORT="name"  BGCOLOR="gold">${3:name}</TD></TR>
+		<TR><TD CELLPADDING="0"><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+			<TR><TD PORT="m1" ALIGN="LEFT">+${4:member}</TD></TR>
+		</TABLE></TD></TR>
+	</TABLE>>]
+$0
+endsnippet
