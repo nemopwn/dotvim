@@ -247,19 +247,22 @@ function! ToHexModle()
 endfunction
 map <leader>hex :call ToHexModle()<CR>
 
-" Ctags
-" Make tags placed in tags file available in all levels of a repository
-if g:coderoot != ''
-  let &tags = &tags . ',' . g:coderoot . '/tags'
-endif
 
 " GNU GLOBAL
 set cscopeprg=gtags-cscope
-" add any database in current directory
-function! GTAGS_add()
+
+" add tags
+function! AddTags()
   set nocsverb
-  if g:coderoot != '' && filereadable(g:coderoot . '/GTAGS')
-    exe 'cs add ' . g:coderoot . '/GTAGS'
+  if g:coderoot != ''
+    " add GTAGS
+    if filereadable(g:coderoot . '/GTAGS')
+      exe 'cs add ' . g:coderoot . '/GTAGS'
+    endif
+    " add tags
+    if filereadable(g:coderoot . '/tags')
+      let &tags = &tags . ',' . g:coderoot . '/tags'
+    endif
   elseif filereadable("GTAGS")
     cs add GTAGS
   endif
@@ -303,7 +306,7 @@ endfunction
 " C
 autocmd FileType c call FT_c()
 function! FT_c()
-  call GTAGS_add()
+  call AddTags()
   set cin
   set cinoptions=:0
   "set makeprg=gcc\ -Wall\ -D__DEBUG__\ -o\ %<.exe\ %
@@ -319,7 +322,7 @@ endfunction
 " C++
 autocmd FileType cpp call FT_cpp()
 function! FT_cpp()
-  call GTAGS_add()
+  call AddTags()
   set cin
   set cinoptions=:0,g0
   "set makeprg=g++\ -Wall\ -D__DEBUG__\ -o\ %<.exe\ %
@@ -336,6 +339,7 @@ endfunction
 autocmd FileType python call FT_python()
 let python_highlight_all = 1
 function! FT_python()
+  call AddTags()
   syn keyword pythonDecorator self
   setlocal wrap  " wrap ,although pymode is on
   set foldmethod=indent
@@ -344,6 +348,12 @@ function! FT_python()
   " Allow triple quotes in python
   let b:delimitMate_nesting_quotes = ['"', "'"]
   setlocal et ts=2 sw=2 sts=2
+endfunction
+
+" Java
+autocmd FileType java call FT_java()
+function! FT_java()
+  call AddTags()
 endfunction
 
 " ---------- Plugins ----------

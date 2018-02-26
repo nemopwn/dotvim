@@ -1,0 +1,47 @@
+#!/bin/sh
+
+CreateFilesList() {
+  find $PWD -name "*.java" > gtags.files
+}
+
+CreateGtags() {
+  gtags -f gtags.files
+}
+
+CreateCscope() {
+  cscope -Rbq -i gtags.files
+}
+
+CreateTags() {
+  ctags -R --languages=java gtags.files
+}
+
+Usage() {
+  fn=`basename $0`
+  echo "Usage: $fn [hfct]"
+  echo "  h    help information"
+  echo "  f    find target files to gtags.files"
+  echo "  g    gtags"
+  # echo "  c    create cscope symbol files"
+  echo "  t    ctags"
+}
+
+
+if [ "$1" = "" ];then
+  Usage $0
+elif [ "$1" = "h" ];then
+  Usage $0
+else
+  if [[ "$1" =~ "f" ]] ;then
+    CreateFilesList
+  fi
+  if [[ "$1" =~ "c" ]] ;then
+    CreateCscope
+  fi
+  if [[ "$1" =~ "g" ]] ;then
+    CreateGtags
+  fi
+  if [[ "$1" =~ "t" ]] ;then
+    CreateTags
+  fi
+fi
