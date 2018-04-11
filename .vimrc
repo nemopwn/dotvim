@@ -422,6 +422,7 @@ let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 let g:UltiSnipsExpandTrigger="<C-f>"
 let g:UltiSnipsJumpForwardTrigger="<C-f>"
 let g:UltiSnipsJumpBackwardTrigger="<C-b>"
+let g:ultisnips_python_style="google"
 
 " CtrlP
 nnoremap <leader>ft :CtrlP<CR>
