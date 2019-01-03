@@ -1,7 +1,7 @@
 #!/bin/sh
 
 CreateFilesList() {
-  find $PWD -name "*.java" > gtags.files
+  find "$PWD" -name "*.java" > gtags.files
 }
 
 CreateGtags() {

@@ -2,7 +2,7 @@
 
 
 CreateFilesList() {
-  find $PWD -name "*.h" -o -name "*.c" -o -name "*.cc" > gtags.files
+  find "$PWD" -name "*.h" -o -name "*.c" -o -name "*.cc" > gtags.files
 }
 
 CreateGtags() {
