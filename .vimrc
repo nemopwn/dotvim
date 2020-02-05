@@ -199,6 +199,9 @@ nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\
 " rename word
 nnoremap gr :%s/\C\<<C-R>=expand("<cword>")<CR>\>//gc<left><left><left>
 
+" copy full path of current path
+nnoremap <Leader>cp :let @+=expand('%:p')<CR>
+
 " When pressing <leader>cd switch to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<CR>
 
